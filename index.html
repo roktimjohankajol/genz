@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genz</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+      body {
+        margin: 0;
+        padding: 0;
+        background-image: linear-gradient(
+          113.53101153013301deg,
+          rgba(0, 0, 0, 1) 4.980042575838212%,
+          rgba(20, 21, 23, 1) 97.74215007982968%
+        );
+        overflow-x: hidden;
+        padding: 20px;
+      }
+      .container {
+        min-height: 100vh;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .left-container {
+        flex: 0.5;
+        height: 100%;
+        display: flex;
+        padding: 0px 50px;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-start;
+        background: transparent;
+        color: #ffff;
+        font-family: "Poppins";
+        text-align: start;
+      }
+      .button-container {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        flex: 0.5;
+        flex-direction: column;
+        width: 50%;
+        transition: all 0.2s ease;
+      }
+      #first-btn,
+      #second-btn,
+      #third-btn,
+      #fourth-btn {
+        transition: all 0.2s ease;
+      }
+      .active-btn {
+        opacity: 1 !important;
+      }
+      .watt-btn {
+        background: transparent;
+        color: #03989e;
+        outline: none;
+        height: fit-content;
+        border: none;
+        text-align: start;
+        font-family: "Poppins";
+        cursor: pointer;
+        font-size: 40px;
+        opacity: 0.5;
+        margin-bottom: 0px;
+      }
+      .right-container {
+        flex: 0.5;
+        height: 100%;
+        display: grid;
+        place-items: center;
+      }
+      #image-container {
+        display: flex;
+        flex-direction: column;
+        transition: height 0.2s ease-in-out;
+      }
+      .genz-img {
+        height: 100px;
+        width: 500px;
+        animation: expand 1s ease-in-out;
+      }
+      @keyframes expand {
+        from {
+          opacity: 0;
+          transform: translateY(100px);
+        }
+      }
+      .watt-btn span {
+        font-size: 16px !important;
+      }
+
+      @media screen and (max-width: 800px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .watt-btn {
+          width: 100%;
+          font-size: 30px;
+        }
+        .watt-btn span {
+          font-size: 14px !important;
+        }
+        .genz-img {
+          height: 80px;
+          width: 400px;
+        }
+        .left-container {
+          width: 100%;
+          padding: 0px 0px;
+        }
+      }
+      @media screen and (max-width: 485px) {
+        .genz-img {
+          height: 60px;
+          width: 300px;
+        }
+      }
+      @media screen and (max-width: 300px) {
+        .genz-img {
+          height: 40px;
+          width: 200px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-container">
+        <h1>Scalable energy storage <br />into the future</h1>
+        <div class="button-container">
+          <button id="first-btn" class="watt-btn active-btn">
+            3<span>Kwh</span>
+          </button>
+          <button id="second-btn" class="watt-btn">6<span>Kwh</span></button>
+          <button id="third-btn" class="watt-btn">9<span>Kwh</span></button>
+          <button id="fourth-btn" class="watt-btn">12<span>Kwh</span></button>
+          <button id="fifth-btn" class="watt-btn">15<span>Kwh</span></button>
+        </div>
+      </div>
+      <div class="right-container">
+        <div id="image-container">
+          <img src="https://res.cloudinary.com/xdevs/image/upload/v1634917484/genz-module_qqoaxy.png" alt="" class="genz-img" />
+        </div>
+      </div>
+    </div>
+    <script>
+      const btn = document.querySelectorAll(".watt-btn");
+      const elem = document.createElement("img");
+      const container = document.getElementById("image-container");
+      let activeIndex = 0;
+      btn.forEach((el, i) => {
+        el.addEventListener("click", () => {
+          if (activeIndex <= i) {
+            btn[activeIndex].classList.remove("active-btn");
+            activeIndex = i;
+            el.classList.add("active-btn");
+            renderImages();
+          } else {
+            removeImage(i);
+            btn[activeIndex].classList.remove("active-btn");
+            activeIndex = i;
+            el.classList.add("active-btn");
+          }
+        });
+      });
+
+      const activateButton = () => {};
+
+      const renderImages = (index) => {
+        const currentImages = document.querySelectorAll(".genz-img");
+        for (let i = 0; i < activeIndex - currentImages.length + 1; i++) {
+          const img = document.createElement("img");
+          container.appendChild(img);
+          img.src = "https://res.cloudinary.com/xdevs/image/upload/v1634917484/genz-module_qqoaxy.png";
+          img.id = i;
+          img.classList.add("genz-img");
+        }
+      };
+
+      const removeImage = (i) => {
+        const currentImages = document.querySelectorAll(".genz-img");
+        const removingImages = activeIndex - i;
+        for (let j = 0; j < removingImages; j++) {
+          container.removeChild(container.lastChild);
+        }
+      };
+    </script>
+  </body>
+</html>
